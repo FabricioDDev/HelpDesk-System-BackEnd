@@ -3,4 +3,4 @@
 
 - # Tecnologias y herramientas usadas
 - ## Base de datos: MySql.
-- ## Lenguaje de Programacion: NodeJs + Express, SQL.
+- ## Lenguaje de Programacion: NodeJs + Express, SQL
