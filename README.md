@@ -1,10 +1,12 @@
 # Readme Guide
-- [Tecnologias y herramientas](#Tecnologias-y-herramientas-usadas)
+- [API Description?](#API-Description?)
+- - [API Version?](#API-Version?)
+  - - [Stack and tools used](#Stack-and-tools-used)
+    - - [EndPoints, a short description and its parameters](#EndPoints,-a-short-description-and-its-parameters)
+      - - [Http Responses format](#Http-Responses-format)
 
-- # Tecnologias y herramientas usadas
-- ## Base de datos: MySql.
-- ## Lenguaje de Programacion: NodeJs + Express, SQL
-
-- # EndPoints and its descriptions:
-- ## api/ejemplo
-- ## descripcion ejemplo asdaadsgiodfja´gvoifdahvóidfhvóidfhvbófdihbgdfóihbdfoíhboibfh
+- # API Description?
+- # API Version?
+- # Stack and tools used
+- # EndPoints, a short description and its parameters
+- # Http Responses format
