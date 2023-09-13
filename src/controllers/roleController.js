@@ -1,4 +1,4 @@
-const { getAllRoles, createRol } = require("../services/rolService")
+const { getAllRoles, createRol } = require("../services/roleService")
 
 const getRolesController = async (req, res) => {
 

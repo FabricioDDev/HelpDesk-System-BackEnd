@@ -1,10 +1,6 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
 
-const LoginFails = require('./LoginFails');
-const Roles = require('./Roles');
-const AccountStates = require('./AccountStates');
-
 const Users = sequelize.define('Users', {
     userId: {
         type: DataTypes.BIGINT(11),
