@@ -2,13 +2,13 @@ const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
 
 const LoginFails = sequelize.define('LoginFails', {
-    loginFailId: {
-        type: DataTypes.BIGINT(11),
+    id: {
+        type: DataTypes.UUID,
         primaryKey: true,
-        autoIncrement: true
+        defaultValue: DataTypes.UUIDV4,
     },
     userId: {
-        type: DataTypes.BIGINT(11),
+        type: DataTypes.UUID,
         allowNull: false
     },
     failedDate: {

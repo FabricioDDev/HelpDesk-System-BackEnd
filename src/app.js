@@ -1,8 +1,16 @@
-const express = require('express')
-const router = require('./routes')
-const db = require('./config/database')
-const app = express()
-const port = process.env.PORT || 3000;
+const express = require('express');
+
+const router = require('./routes');
+const db = require('./config/database');
+const { port } = require('./config');
+
+const app = express();
+
+
+app.use(express.json());
+
+app.use('/', router)
+
 
 async function startDatabase() {
     try {
@@ -12,15 +20,10 @@ async function startDatabase() {
     } catch (error) {
         throw new Error(error)
     }
-}
+};
 
-startDatabase()
-
-app.use(express.json())
-
-app.use('/', router)
-
+startDatabase();
 
 app.listen(port, ()=> {
-    console.log(`App running on port: ${port}`)
-})
+    console.log(`App running on port: ${port}`);
+});

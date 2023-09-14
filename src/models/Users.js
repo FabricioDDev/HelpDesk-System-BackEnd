@@ -3,9 +3,9 @@ const sequelize = require('../config/database');
 
 const Users = sequelize.define('Users', {
     userId: {
-        type: DataTypes.BIGINT(11),
+        type: DataTypes.UUID,
         primaryKey: true,
-        autoIncrement: true
+        defaultValue: DataTypes.UUIDV4,
     },name: {
         type: DataTypes.STRING(50),
         allowNull: false
@@ -27,15 +27,15 @@ const Users = sequelize.define('Users', {
         allowNull: false
     },
     roleId: {
-        type: DataTypes.BIGINT(11),
+        type: DataTypes.UUID,
         allowNull: false
     },
     accountStateId: {
-        type: DataTypes.BIGINT(2),
+        type: DataTypes.UUID,
         allowNull: false
     },
     userLocked: {
-        type: DataTypes.BOOLEAN(1),
+        type: DataTypes.BOOLEAN,
         allowNull: false
     },
     createdDate: {

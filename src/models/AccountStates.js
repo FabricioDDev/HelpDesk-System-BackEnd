@@ -2,10 +2,10 @@ const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database')
 
 const AccountStates = sequelize.define('AccountStates',{
-    accountStateId: {
-        type: DataTypes.BIGINT(2),
+    id: {
+        type: DataTypes.UUID,
         primaryKey: true,
-        autoIncrement: true
+        defaultValue: DataTypes.UUIDV4,
     },
     accountStateName: {
         type: DataTypes.STRING(50),

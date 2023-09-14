@@ -7,6 +7,7 @@ const config = {
     dbUser: process.env.DB_USER || 'root',
     dbPass: process.env.DB_PASS || '',
     dbHost: process.env.DB_HOST || 'localhost',
+    dbPort: process.env.DB_PORT || '3306',
     dbDialect: process.env.DIALECT || 'mysql'
 }
 
