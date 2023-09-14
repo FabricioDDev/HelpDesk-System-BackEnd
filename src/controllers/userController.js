@@ -41,7 +41,7 @@ const getUserBy = async (req, res) => {
     }) : res.status(404).json({
         error: true,
         statusCode: 404,
-        message: 'Invalid email address'
+        message: 'Invalid Id'
     });
 }
 
