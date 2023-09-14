@@ -1,30 +1,70 @@
 const Users = require("../models/Users")
 
 const getAllUser = async () => {
-    const users = await Users.findAll()
-    return users
+    try {
+        
+        const users = await Users.findAll();
+
+        return users;
+
+    } catch (err) {
+        console.error(err);
+    }
 }
 
-const createUser = async () => {
+const getUserById = async (id) => {
     try {
-        const newUser = await Users.create({
-            name: 'pepe',
-            lastName: 'rodriguez',
-            userName: 'pepe10',
-            email: 'pepe@mail.com',
-            password: 'pepe123',
-            roleId: 1,
-            accountStateId: 2,
-            userLocked: false,
-            createdDate: new Date()
-        })
-        return newUser
-    } catch (error) {
-        console.log(error)
+        
+        const user = await Users.findOne({
+            where: {id},
+        });
+    
+        return user;
+
+    } catch (err) {
+        console.error(err);
     }
+}
+
+const getUserByEmail = async (email) => {
+
+    try {
+        
+        const user = await Users.findOne({
+            where: {email},
+        });
+    
+        return user;
+        
+    } catch (err) {
+        console.error(err);
+    }
+
+}
+
+const createUser = async (user) => {
+    try {
+        const newUser = await Users.create(user);
+
+        return newUser;
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+const updateUser = (id, body) => {
+
+}
+
+const deleteUser = (id) => {
+
 }
 
 module.exports = {
     getAllUser,
-    createUser
+    createUser,
+    getUserByEmail,
+    getUserById,
+    updateUser,
+    deleteUser,
 }
