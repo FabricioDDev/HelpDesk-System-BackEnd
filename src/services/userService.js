@@ -35,7 +35,7 @@ const getUserByEmail = async (email) => {
         });
     
         return user;
-        
+
     } catch (err) {
         console.error(err);
     }
@@ -47,8 +47,10 @@ const createUser = async (user) => {
         const newUser = await Users.create(user);
 
         return newUser;
+
     } catch (error) {
         console.error(error);
+        return null;
     }
 }
 
