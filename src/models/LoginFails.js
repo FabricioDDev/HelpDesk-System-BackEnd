@@ -17,7 +17,7 @@ const LoginFails = sequelize.define('LoginFails', {
     }, 
 }, {
     tableName: "loginFails",
-    timestamps: false 
+    timestamps: true, 
 });
 
 LoginFails.associate = function (models) {

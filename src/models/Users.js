@@ -6,7 +6,8 @@ const Users = sequelize.define('Users', {
         type: DataTypes.UUID,
         primaryKey: true,
         defaultValue: DataTypes.UUIDV4,
-    },name: {
+    },
+    firstName: {
         type: DataTypes.STRING(50),
         allowNull: false
     },
@@ -37,15 +38,11 @@ const Users = sequelize.define('Users', {
     userLocked: {
         type: DataTypes.BOOLEAN,
         allowNull: false
-    },
-    createdDate: {
-        type: DataTypes.DATE,
-        allowNull: false
-    },
+    }
 
 },{
     tableName: "users",
-    timestamps: false
+    timestamps: true,
 })
 
 

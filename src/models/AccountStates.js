@@ -13,7 +13,7 @@ const AccountStates = sequelize.define('AccountStates',{
     }
 },{
     tableName: "accountStates",
-    timestamps: false
+    timestamps: true,
 });
 
 AccountStates.associate = function (models) {
