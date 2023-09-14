@@ -1,37 +1,38 @@
-const { getAllUser, createUser } = require("../services/userService")
+const { getAllUser, createUser, getUserById, getUserByEmail } = require("../services/userService")
 
 
 const getUsersController = async (req, res) =>{
+const { email } = req.query
+
+    if (email) {
+        const user = await getUserByEmail(email);
+
+        return user ? res.json({
+            error: false,
+            sttusCode: 200,
+            data: user
+        }) : res.status(404).json({
+            error: true,
+            statusCode: 404,
+            message: 'Invalid email address'
+        });
+
+    }
+
+    
     const users = await getAllUser()
     
-    res.status(200).json({
+    return res.status(200).json({
         error: false,
         statusCode: 200,
         data: users
     })
 }
 
-const getUserById = async (req, res) => {
+const getUserBy = async (req, res) => {
     const {id} = req.params
 
-    const user = await getUserByEmail(id);
-
-    return user ? res.json({
-        error: false,
-        sttusCode: 200,
-        data: user
-    }) : res.status(404).json({
-        error: true,
-        statusCode: 404,
-        message: 'Invalid email address'
-    });
-}
-
-const getUserByEmail = async (req, res) => {
-
-    const {email} = req.params
-
-    const user = await getUserByEmail(email);
+    const user = await getUserById(id);
 
     return user ? res.json({
         error: false,
@@ -64,6 +65,5 @@ const createUserController = async (req, res) =>{
 module.exports = {
     getUsersController,
     createUserController,
-    getUserByEmail,
-    getUserById
+    getUserBy
 }
