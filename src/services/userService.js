@@ -1,4 +1,6 @@
+const { where } = require("sequelize")
 const Users = require("../models/Users")
+
 
 const getAllUser = async () => {
     const users = await Users.findAll()
@@ -23,8 +25,30 @@ const createUser = async () => {
         console.log(error)
     }
 }
+const loginConection = async (userLog) => {
+    try {
+        const password = userLog.password
+        const email = userLog.email
+        const user = await Users.findAll()
+        const match = user.filter(x => x.email == email)
+        if (match != "") {
+            if (match[0].password == password) {
+                return match[0]
+            } else {
+
+                return 'contraseña incorrecta'
+            }
+        } else {
+            return 'El usuario no existe'
+        }
+
+    } catch (error) {
+        console.log(error)
+    }
+}
 
 module.exports = {
     getAllUser,
-    createUser
+    createUser,
+    loginConection,
 }
