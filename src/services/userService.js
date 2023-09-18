@@ -27,19 +27,21 @@ const createUser = async () => {
 }
 const loginConection = async (userLog) => {
     try {
+        const tok = 'El usuario no existe'
+        const ken = 'contraseña incorrecta'
         const password = userLog.password
         const email = userLog.email
         const user = await Users.findAll()
-        const match = user.filter(x => x.email == email)
+        const match = user.filter(x => x.email === email)
         if (match != "") {
-            if (match[0].password == password) {
+            if (match[0].password === password) {
                 return match[0]
             } else {
 
-                return 'contraseña incorrecta'
+                return match[0] = ken
             }
         } else {
-            return 'El usuario no existe'
+            return tok
         }
 
     } catch (error) {

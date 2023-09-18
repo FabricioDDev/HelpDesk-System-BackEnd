@@ -11,10 +11,19 @@ const createUserController = async (req, res) => {
 
     res.status(200).json(user)
 }
-
 const userLogin = async (req, res) => {
+    const tok = 'El usuario no existe'
+    const ken = 'contraseña incorrecta'
     const userLog = { ...req.body }
     const user = await loginConection(userLog)
+    if (user === tok) {
+        return res.status(401).send(user)
+
+    }
+    if (user === ken) {
+        return res.status(401).send(user)
+
+    }
     res.status(200).json(user)
 }
 
