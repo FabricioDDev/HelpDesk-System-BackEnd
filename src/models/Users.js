@@ -6,7 +6,7 @@ const Users = sequelize.define('Users', {
         type: DataTypes.BIGINT(11),
         primaryKey: true,
         autoIncrement: true
-    },name: {
+    }, name: {
         type: DataTypes.STRING(50),
         allowNull: false
     },
@@ -23,7 +23,7 @@ const Users = sequelize.define('Users', {
         allowNull: false
     },
     password: {
-        type: DataTypes.STRING(50),
+        type: DataTypes.STRING(256),
         allowNull: false
     },
     roleId: {
@@ -43,7 +43,7 @@ const Users = sequelize.define('Users', {
         allowNull: false
     },
 
-},{
+}, {
     tableName: "users",
     timestamps: false
 })

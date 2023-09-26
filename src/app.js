@@ -1,8 +1,10 @@
 const express = require('express')
 const router = require('./routes')
+const apiRouter = require('./routes/apiRouter')
 const db = require('./config/database')
 const app = express()
 const port = process.env.PORT || 3000;
+
 
 async function startDatabase() {
     try {
@@ -19,6 +21,7 @@ startDatabase()
 app.use(express.json())
 
 app.use('/', router)
+app.use(apiRouter)
 
 
 app.listen(port, () => {

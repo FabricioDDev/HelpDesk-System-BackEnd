@@ -7,9 +7,19 @@ const getUsersController = async (req, res) => {
 }
 
 const createUserController = async (req, res) => {
-    const user = await createUser()
+    const userData = { ...req.body }
+    const user = await createUser(userData)
+    if (user === "Error") {
+        return res.status(500).send(user)
 
-    res.status(200).json(user)
+    }
+    if (user === "el usuario ya esta registrado") {
+        return res.status(403).send(user)
+    } else {
+
+        return res.status(200).json(user)
+    }
+
 }
 const userLogin = async (req, res) => {
     const tok = 'El usuario no existe'
