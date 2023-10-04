@@ -6,6 +6,8 @@ const expressJwt = require('express-jwt')
 const LoginFails = require("../models/LoginFails")
 const fs = require('fs')
 
+//const validateToken = expressJwt({ "secret": 'mi-secreto', "algorithm": ['HS256'] })
+const signToken = userId => jwt.sign({ userId }, 'mi-secreto')
 
 const apiController = {
     createUser: async (req, res) => {
@@ -25,8 +27,11 @@ const apiController = {
                     userLocked: false,
                     createdDate: new Date()
                 }
-                Users.create(newUser)
-                return res.status(200).send('Usuario creado con éxito')
+                const createdUser = Users.create(newUser)
+                const signed = signToken(createdUser.userId)
+
+
+                return res.status(200).send(signed)
             } else {
                 return res.status(403).send('Ese usuario ya se encuentra registrado')
             }
@@ -45,28 +50,36 @@ const apiController = {
             if (isUser == "") {
                 res.status(404).send('no se encontro')
             } else {
-                const match = bcryptjs.compareSync(userToLogin.password, isUser[0].password)
-                if (!match) {
-                    const userId = isUser[0].userId
-                    const userFails = await LoginFails.findAll({ where: { userId: userId } })
-                    if (userFails === " " || userFails.length < 5) {
-                        const fails = await LoginFails.create({ userId: userId, failedDate: new Date() })
-                        return res.status(403).send('credenciales incorrectas ' + match)
+                if (isUser[0].accountStateId === 1) {
+                    const match = await bcryptjs.compareSync(userToLogin.password, isUser[0].password)
+                    if (!match) {
+                        const userId = isUser[0].userId
+                        const userFails = await LoginFails.findAll({ where: { userId: userId } })
+                        if (userFails === " " || userFails.length < 5) {
+                            await LoginFails.create({ userId: userId, failedDate: new Date() })
+                            return res.status(403).send('credenciales incorrectas ' + match)
+                        } else {
+                            //Acá habráa que bloquear el estado del usuario
+                            await Users.update({ accountStateId: 2 }, { where: { userId: userId } })
+                            res.json(userFails)
+                        }
                     } else {
-                        //Acá habráa que bloquear el estado del usuario
-                        res.json(userFails)
+                        const userId = isUser[0].userId
+                        await LoginFails.destroy({ where: { userId: userId } })
+                        const signed = signToken(userId)
+                        return res.status(200).send(signed)
+                        //Acá se podría agregar la parte de session y el token firmado
                     }
                 } else {
-                    const userId = isUser[0].userId
-                    const userFails = await LoginFails.destroy({ where: { userId: userId } })
-                    return res.status(200).json(isUser)
-                    //Acá se podría agregar la parte de session y el token firmado
+                    return res.status(403).send('Contactese con soporte')
                 }
             }
         } catch (err) {
             res.json(err.message)
         }
     }
+
+
 }
 
 module.exports = apiController
