@@ -1,4 +1,5 @@
 const express = require('express')
+const session = require('express-session');
 const router = require('./routes')
 const apiRouter = require('./routes/apiRouter')
 const db = require('./config/database')
@@ -19,7 +20,10 @@ async function startDatabase() {
 startDatabase()
 
 app.use(express.json())
-
+app.use(session({
+    secret: 'Mi string secreto',
+    expires: new Date(Date.now() + (30 * 60000 * 60 * 1000))
+}))
 app.use('/', router)
 app.use(apiRouter)
 

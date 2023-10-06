@@ -67,6 +67,9 @@ const apiController = {
                         const userId = isUser[0].userId
                         await LoginFails.destroy({ where: { userId: userId } })
                         const signed = signToken(userId)
+                        req.session.userLogged = isUser[0]
+                        const log = req.session.userLogged = isUser[0]
+                        console.log(log)
                         return res.status(200).send(signed)
                         //Acá se podría agregar la parte de session y el token firmado
                     }
