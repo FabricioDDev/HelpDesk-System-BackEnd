@@ -4,7 +4,8 @@ const router = require('./routes')
 const apiRouter = require('./routes/apiRouter')
 const db = require('./config/database')
 const app = express()
-const port = process.env.PORT || 3000;
+const cors = require('cors')
+const port = 3001;
 
 
 async function startDatabase() {
@@ -24,6 +25,7 @@ app.use(session({
     secret: 'Mi string secreto',
     expires: new Date(Date.now() + (30 * 60000 * 60 * 1000))
 }))
+app.use(cors())
 app.use('/', router)
 app.use(apiRouter)
 

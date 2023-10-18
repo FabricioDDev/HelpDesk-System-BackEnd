@@ -1,8 +1,8 @@
 const fs = require('fs');
 const path = require('path');
-const Users = require('../models/Users')
-const sequelize = Users.sequelize
-const { Op } = require('sequelize')
+const Users = require('../models/Users');
+const sequelize = Users.sequelize;
+const { Op } = require('sequelize');
 
 const profileAuthMiddleware = async (req, res, next) => {
     if (req.session.userLogged != "" && req.session.userLogged) {
@@ -14,7 +14,7 @@ const profileAuthMiddleware = async (req, res, next) => {
 
             next()
         } else {
-            return res.status(403).send('Notiene permisos de Administrador')
+            return res.status(403).send('No tiene permisos de Administrador')
         }
     } else {
 
@@ -23,4 +23,4 @@ const profileAuthMiddleware = async (req, res, next) => {
 
 }
 
-module.exports = profileAuthMiddleware
+module.exports = profileAuthMiddleware;
