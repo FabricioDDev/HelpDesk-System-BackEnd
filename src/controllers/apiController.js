@@ -93,6 +93,53 @@ const apiController = {
         } catch (err) {
             res.json(err.message)
         }
+    },
+    modifyUser: async (req, res) => {
+        try {
+            const modifyId = req.params.id
+            let errors = validationResult(req)
+            const userToModify = { ...req.body }
+            const user = await Users.findAll()
+            const isUser = await user.filter(x => x.userId == modifyId)
+
+            if (isUser == "") {
+                //const modificatedUser = Users.update({ where: { userId: modifyId } })
+                //const signed = signToken(modifyUser.userId)
+
+
+                return res.status(403).send('Ese usuario no se encuentra registrado')
+
+            } else {
+                if (errors.isEmpty()) {
+                    const modifyUser = {
+                        name: userToModify.name,
+                        lastName: userToModify.lastName,
+                        userName: userToModify.userName,
+                        email: isUser.email,//       <---------   arreglar este
+                        password: bcryptjs.hashSync(req.body.password, 10),
+                        roleId: userToModify.roleId,
+                        accountStateId: userToModify.accountStateId,
+                        userLocked: false,
+                        createdDate: new Date()
+                    }
+
+
+                    await Users.update({ ...modifyUser }, { where: { userId: modifyId } })
+
+                    return res.status(200).json(modifyUser)
+
+                } else {
+                    console.log(errors.array())
+                    return res.status(403).send('debes completar los campos requeridos')
+                }
+            }
+
+            //return res.status(200).json(modifyId)
+        }
+        catch (err) {
+            return res.send(err.message)
+        }
+
     }
 
 

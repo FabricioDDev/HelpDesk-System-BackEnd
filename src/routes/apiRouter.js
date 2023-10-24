@@ -5,6 +5,7 @@ const apiController = require('../controllers/apiController')
 //const validateJwt = expressJwt({ secret: 'mi-secreto', algorithm: ['HS256'] })
 const profileAuthMiddleware = require('../middlewares/profileAuthMiddleware')
 const { body } = require('express-validator')
+const loginMiddleware = require('../middlewares/loginMiddleware')
 
 const loginValidation = [
     body('email').notEmpty().withMessage('El campo de email es requerido'),
@@ -30,6 +31,6 @@ router.get('/server', (req, res) => {
 router.post('/server', (req, res) => {
     res.json({ mensaje: 'Conección al back por metodo POST' })
 }) /* */
-
+router.post('/modifyUser/:id', loginMiddleware, registerValidation, apiController.modifyUser)
 
 module.exports = router
